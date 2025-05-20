@@ -1,0 +1,44 @@
+## Self Review:
+    Overall, we believe our implementation of MVC pattern isolates the user interface, VIEW, from
+the model logic with the controller mediating the interaction. While interacting with our customer,
+We encountered that in two of our view classes, we refer concrete user class in few methods. Since
+it is a bad design decision to reveal model implementation, we changed that approach and was able to
+encapsulate the models state and logic in the end. Since it was a minor mistake, it didn't take
+us much time to adapt the solid MVC pattern.
+
+    In terms of controller, since the controller interacts with the view through a defined set
+of actions (via the Features interface), it makes it agnostic to the specific implementation of
+the view. As long as the new or replaced view adheres to these contracts, the controller code
+would not need significant modifications
+
+    We learned a lot about looking at code as a customer and how much you should
+actually be seeing. We learned more about how important it is to hide implementation
+from the customer and how the customer should only be seeing the bare minimum
+code, so they can figure out how to use the code.
+
+    Moreover, our initial encounter with the provided code revealed that it did not utilize
+interfaces. Initially, the significance of using interfaces was not fully apparent to us.
+However, as we progressed, we recognized the crucial role of interfaces in safeguarding the
+underlying implementation from direct modifications by clients. This approach not only ensures
+the encapsulation and protection of the code but also facilitates easier maintenance and
+scalability by defining clear contracts for interaction with the system components.
+
+    Initially, our implementation did not include specific interfaces for the "Event",
+"Schedule", and "User" components. However, we have recently developed and finalized
+interfaces for these elements, which we deemed essential to provide a structured foundation
+for our customers' implementations. For the "Event" component, while it functions primarily
+as a value class, we introduced an "IEvent" interface, which the "Event" class now implements.
+This adoption of interfaces helps standardize our approach and ensure that functionality
+remains consistent across different parts of the application.
+
+    During the process of refining and customizing the code for our customers, we identified
+some instances where the model's implementation details were leaking into the view components.
+Fortunately, these leaks were minor and were swiftly addressed. This adjustment not only
+streamlined our codebase but also reinforced the separation of concerns, making our application
+more robust and maintainable.
+
+    The communication with our provider was relatively smooth and effective. However, they didn't
+manage to provide a code that we can adapt with our controller since their design with view,
+controller, and model were too tightly coupled. We weren't able to finish and perform Features
+and View adapter for this reason. However, we did write stub implementations assuming that
+these parts that we wrote would work if we could properly use their controller.

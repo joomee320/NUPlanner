@@ -1,0 +1,186 @@
+OVERVIEW:
+The NUPlanner has a controller, a model, and a view. The only parts implemented in this
+homework were the model and the view(textual view). The NUPlanner is supposed to keep track of a user's
+schedule and display it for them to see.
+
+QUICK START:
+To start the code, you need to make a new CentralSystem(). From there you can add events
+and users and manipulate the schedule as well as upload files.
+To make a view you create a new ScheduleTextView(model) and pass in a model (CentralSystem)
+and then you can see the schedule in a textual view.
+
+MODEL:
+The model has a class called event which represents
+an event that is on the calendar. It also has the interface systems which creates the
+interface for the model and all the functions the model uses. The class central system
+is the class for the model that handles all of the events and when files are uploaded
+to the system. The class user represents a user that has a schedule which is in the class
+schedule. The enum day represents the 7 days of the week. The class XMLParser reads
+and writes to and from a file.
+
+Key Components
+CentralSystem: This is the core component of the NUPlanner system, acting as the central manager
+for all users and their schedules. It "drives" the control flow by processing inputs
+(such as XML uploads or user interactions) and applying the necessary changes to the data model.
+It ensures consistency across the system, particularly when events are created, modified, or deleted,
+reflecting these changes across all relevant user schedules.
+
+User: Represents individual users within the system. Each user has a unique identifier (uid) and a
+personal schedule. This component is "driven" by CentralSystem actions, such as event modifications
+or schedule updates.
+
+Schedule: Attached to each User, it holds the collection of events that the user is involved with.
+It includes functionality to add, modify, or remove events, ensuring no overlapping events are present.
+
+Event: Represents a specific scheduled activity. Contains details such as event name, start and end
+times documented as LocalTime, location, and participant users.
+
+Source Organization
+/src/main/java/nuplanner/model: Contains the core model classes
+(CentralSystem, User, Schedule, Event, XMLParser). This directory is the heart of the application logic,
+managing the state and interactions of these primary entities.
+
+/src/main/java/nuplanner/view: (If applicable) This would contain classes responsible for rendering
+the system's state to the user. However, if your system is more backend-focused, this may not be present.
+
+VIEW:
+Has an interface for the view that allows the view to be seen textually. Also has a
+schedule text view class which prints out the schedule in a textual view.
+
+GUI VERSION:
+We now have 4 new interfaces in our view. The interfaces are for event panels, the
+event frame, the planner panel, and the panel frames. These interfaces help create
+the components need for the view which is now in GUI form. A class is created for each
+of these interfaces. The Event frame and panel handles the pieces of the event that
+the user wants to create/modify/delete. It has different components that the user can
+type into or change so a new event could be made. The Planner frame and panel handles
+the view of the schedule. It creates the lines needed to see the schedule and schedules
+can be loaded or saved from or to the computer. The events are displayed on the schedule
+in red when an event is created. Events can be created from both frames and events can
+also be modified or deleted when the red event is clicked on from the planner panel.
+
+CLASS INVARIANT:
+
+1. Every User in the users map must have a unique uid. This invariant ensures that each user
+in the system can be uniquely identified and accessed through their uid, which is crucial for
+managing users and their schedules accurately.
+
+We enforced this class invariant in the implementation by checking in place within the addUser
+method to prevent adding a User with a duplicate uid and if there is an existing user it throws
+an error.
+
+2. The event duration must be within an allowed maximum duration. This ensures that every Event
+object created adheres to the rules defined in our Homework. The invariant is being enforced in
+our model through the isValidEventDuration method in Event class. This method is being called
+inside the Event class constructor and checks this condition before an Event object is created.
+This method, called within the Event constructor, helps enforce this invariant by throwing an
+exception if the duration is not valid.
+
+
+CHANGES FOR PART 2:
+
+We added a new constructor in Central System, User, and Schedule so when a Central
+System is created, there can also be a schedule passed into it instead of having to
+manually add and create everything.
+
+For the operation,
+we modified deleteEvent by calling separate functions for each host and invitees.
+
+We created two separate interfaces. One for the read only methods that cannot change
+anything in the model, and the other is for the mutable part of the model that
+can change parts of the model.
+
+CHANGES FOR PART 3:
+
+There were few model implementation adjustments but not a major design change. A notable adjustment
+was made to the isOverlapping methods in the Schedule class, enhancing its error handling capabilities.
+Moreover, previously, the readScheduleFromFile method in the utilities package was indiscriminately
+capturing exceptions, leading to imprecise error reporting. By fine-tuning the exception handling to
+ target specific errors, the system now reliably throws exceptions under appropriate circumstances.
+
+Additionally, we enhanced the view's functionality. Initially, interactions with the create, modify,
+and remove buttons would log event details for debugging purposes without invoking corresponding
+model operations. This approach has evolved; such interactions now actively engage the model, executing
+relevant methods to effectuate changes in event data. While debugging logs have been retained, they
+now complement direct actions performed by the model.
+
+Moreover, the process for uploading and saving schedules has been streamlined. The controller now
+plays a pivotal role, leveraging model methods to execute these tasks effectively. Debugging outputs
+remain in place to aid in troubleshooting and ensure smooth operation.
+
+The main class now takes in the command line arguments and uses them as a strategy.
+It turns the arguments into one string that is then passed into the controller as the string
+of the strategy. The arguments you can pass into the command line are either "Any time" or
+"Work hours".
+
+Extra Credit:
+The view is completely resizable and the components of the view adjust to the size whether the screen is shrinking
+or growing.
+
+CHANGES FOR PART 4:
+
+## Problems in Provider's Code
+ #Tight Coupling Between Controller & View & Model:
+
+The view (NUEventFrame) directly manipulates model instances (Schedule, User), which breaks the MVC
+principle of separating view and model interactions through the controller. For example, in their view
+classes, instantiating Schedule and User in the view constructor suggests a design flaw where
+the view is managing model state directly.
+
+Also, the views have methods that return text from a specific field on the view. Instead of
+passing in the values to the controller, they accessed components from the view by calling
+the view methods that return the components inside the controller class. This is poor designing
+since anyone can access the fields of the view and not just the controller, and is a tight coupling
+between view and controller. The Controller may become overly specific to the View’s internal
+implementation, making the code less flexible and harder to maintain.
+
+Thus, we were NOT able to implement the Features adapter. It is impossible
+without completely rewriting the controller itself.
+
+However, we successfully developed all the necessary adapters to integrate their views with ours.
+For instance, we implemented ReadOnlyModelAdapters and MutableModelAdapters to ensure compatibility
+between our model interfaces and theirs. Additionally, we created adapters like EventClassAdapter,
+UserAdapter, ScheduleAdapter, and TimeClassAdapter to facilitate these integrations.
+
+## Files changed:
+Our customers asked for us to add 3 interfaces inside our model. We added a IEvent, IUser,
+and ISchedule interface to document all of the methods inside of these classes. We then had
+to go through and change the code so that it implemented from these classes. We changed the
+code wherever there was an Event created to an IEvent for example. All of the protected
+methods in our original classes were changed to public so they could be accessed outside of
+the class. All of these changes were needed so the customers could see what the individual
+classes did without having the implementation of them. We also needed to make the methods
+public thanks to the interface since they could not be accessed without it.
+
+## Command Line:
+We also added a new command to the command line for if our view is called or our provider's.
+If the word "provider" is put in the command line then theirs is called. If not, it defaults
+to our view being opened.
+
+## What is working with provider's view?
+The new Command Line with "provider" shows the schedule frame and event frame of provider's
+successfully. However, since we weren't able to adapt their controller and view for the reason
+provided above, all the operations do not work.
+
+Extra Credit Assignment:
+Level 0: For this level we created a new class called paintComponent which paints the lines and the boxes onto the the
+panel. We then made a decorator that implements the IView and is another frame. It adds the toggle color button to the
+frame which when clicked, should change the color of the boxes to blue if the user selected is the host. This code is
+all implemented inside of the paintComponent class but we could not get class to draw anything onto the graphics.
+We tried finding a solution to this but ultimately ran out of time. The code to turn it blue is there and it
+checks to see if the selected user is the host and only changes if the toggle color button is clicked.
+
+Level 1: The main thing that had to be reimplemented in the model was the Day enumeration. The Day enumeration originally
+started on Sunday meaning the first ordinal was Sunday. The new enumeration starts on Saturday so the first ordinal starts
+on Saturday. This means the Event class also had to be reimplemented because it was only taking in a Day instead of the
+enumeration SaturdayDay which starts at Saturday. This means I had to reimplement anywhere a new event was created. This
+only included the User class so I had to create a new User class that only made events that started on Saturday. The rest
+of the model implementation did not need to be created since everything else only included the interfaces of the events
+which worked well. The delegate could be called everywhere else and worked perfectly. The tests from our old model worked
+just fine. The types of variables that were created were the only things that needed to be changed since the tests passed with that.
+
+Level 2: This level was to change the view so that it started at Saturday instead of Sunday. In the paint component class that was
+created previously, we created another method that if the starting at Saturday schedule is being used, the event will be drawn on
+accordingly. This code works as we tried it in the previously created panel and then added an event on Saturday and it showed up at
+the beginning of the panel. However, due to the same issues faced in Level 0, paintComponent class is not allowing for things to be
+drawn onto it meaning we cannot see the code with the schedule starting on Saturday.
