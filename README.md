@@ -5,9 +5,6 @@
 NUPlanner is a modular, object-oriented scheduling and calendar application written in Java using the MVC (Model-View-Controller) architecture. It enables multiple users to manage personal schedules, create and modify events, and visualize their calendars using both textual and GUI interfaces.
 
 This project was developed with core principles of software engineering: abstraction, modularity, separation of concerns, and testability.
-<img width="658" alt="thumbnail_Schedule Frame when first created" src="https://github.com/user-attachments/assets/6ebe26df-5108-4fc8-89c4-e3bc1ae5024c" />
-<img width="659" alt="thumbnail_image" src="https://github.com/user-attachments/assets/add38d23-5d57-4650-9be2-01cad3e1e784" />
-<img width="657" alt="thumbnail_image-1" src="https://github.com/user-attachments/assets/0d0cf6d3-8d22-497e-ad61-383a0cae8564" />
 
 ## Features
 
@@ -124,3 +121,7 @@ src/
 
 Provider’s GUI framework could not be controlled due to tight coupling with their controller.
 paintComponent render logic intended for dynamic calendar drawing encountered limitations and is partially implemented but not fully functional.
+
+<img width="658" alt="thumbnail_Schedule Frame when first created" src="https://github.com/user-attachments/assets/6ebe26df-5108-4fc8-89c4-e3bc1ae5024c" />
+<img width="659" alt="thumbnail_image" src="https://github.com/user-attachments/assets/add38d23-5d57-4650-9be2-01cad3e1e784" />
+<img width="657" alt="thumbnail_image-1" src="https://github.com/user-attachments/assets/0d0cf6d3-8d22-497e-ad61-383a0cae8564" />
