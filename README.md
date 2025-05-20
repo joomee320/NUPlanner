@@ -5,6 +5,9 @@
 NUPlanner is a modular, object-oriented scheduling and calendar application written in Java using the MVC (Model-View-Controller) architecture. It enables multiple users to manage personal schedules, create and modify events, and visualize their calendars using both textual and GUI interfaces.
 
 This project was developed with core principles of software engineering: abstraction, modularity, separation of concerns, and testability.
+<img width="658" alt="thumbnail_Schedule Frame when first created" src="https://github.com/user-attachments/assets/6ebe26df-5108-4fc8-89c4-e3bc1ae5024c" />
+<img width="659" alt="thumbnail_image" src="https://github.com/user-attachments/assets/add38d23-5d57-4650-9be2-01cad3e1e784" />
+<img width="657" alt="thumbnail_image-1" src="https://github.com/user-attachments/assets/0d0cf6d3-8d22-497e-ad61-383a0cae8564" />
 
 ## Features
 
@@ -43,25 +46,23 @@ Architecture
 
 ## Model
 
-CentralSystem — Main backend manager handling creation, update, and deletion of users and events. Acts as the logic core.
-Event — Encapsulates individual event details (name, time range, location, participants).
-Schedule — Maintains per-user event collections and prevents overlapping.
-User — Stores unique UID and personal schedule.
-XMLParser — Provides reading/writing of schedules to XML format.
-Interfaces:
+- CentralSystem — Main backend manager handling creation, update, and deletion of users and events. Acts as the logic core.
+- Event — Encapsulates individual event details (name, time range, location, participants).
+- Schedule — Maintains per-user event collections and prevents overlapping.
+- User — Stores unique UID and personal schedule.
+- XMLParser — Provides reading/writing of schedules to XML format.
 
-IEvent, IUser, ISchedule — Maintain logic abstraction and decouple implementations from external users.
-View
+- Interfaces: IEvent, IUser, ISchedule — Maintain logic abstraction and decouple implementations from external users.
 
-TextualView — Outputs user schedules in a simple terminal-friendly format.
-GUI (Swing) — Allows interaction via Event Frames and Planner Panels. Supports visual scheduling, event creation/modification through clicks and form inputs.
-Enhanced GUI includes color toggles, resizing, and graphical timeline rendering (via paintComponent).
-Controller
+- View
+ - TextualView — Outputs user schedules in a simple terminal-friendly format.
+ - GUI (Swing) — Allows interaction via Event Frames and Planner Panels. Supports visual scheduling, event creation/modification through clicks and form inputs.
+ - Enhanced GUI includes color toggles, resizing, and graphical timeline rendering (via paintComponent).
 
-Converts user inputs (button clicks, command-line inputs) into model side effects.
-Accepts strategy arguments (e.g., Work Hours preference) and applies them through decision logic.
-Communicates only through defined interfaces (Features), enhancing loose coupling.
-Usage
+- Controller
+ - Converts user inputs (button clicks, command-line inputs) into model side effects.
+ - Accepts strategy arguments (e.g., Work Hours preference) and applies them through decision logic.
+ - Communicates only through defined interfaces (Features), enhancing loose coupling.
 
 ## Quick Start
 
