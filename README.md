@@ -1,12 +1,12 @@
 # NUPlanner: Java-based Calendar & Event Planning Application
 
-Overview
+## Overview
 
 NUPlanner is a modular, object-oriented scheduling and calendar application written in Java using the MVC (Model-View-Controller) architecture. It enables multiple users to manage personal schedules, create and modify events, and visualize their calendars using both textual and GUI interfaces.
 
 This project was developed with core principles of software engineering: abstraction, modularity, separation of concerns, and testability.
 
-Features
+## Features
 
 ✅ User schedule creation and event management
 
@@ -21,19 +21,19 @@ Features
 ✅ Implements interface-based abstraction (IUser, IEvent, ISchedule) for loosely coupled design
 
 ✅ Adapter and integration layer for 3rd-party view compatibility
-
+ 
 ✅ GUI components are resizable and responsive
 
-Technologies & Concepts
+## Technologies & Concepts
 
-🛠 Languages & Frameworks:
+### 🛠 Languages & Frameworks:
 
 Java SE 11+
 Java Swing
 XML (JAXP)
 JUnit (if tested)
 
-🎯 Design Patterns:
+### 🎯 Design Patterns:
 
 Model-View-Controller (MVC)
 Strategy Pattern
@@ -41,7 +41,7 @@ Adapter Pattern
 Interface-based abstraction
 Architecture
 
-# Model
+## Model
 
 CentralSystem — Main backend manager handling creation, update, and deletion of users and events. Acts as the logic core.
 Event — Encapsulates individual event details (name, time range, location, participants).
@@ -63,7 +63,7 @@ Accepts strategy arguments (e.g., Work Hours preference) and applies them throug
 Communicates only through defined interfaces (Features), enhancing loose coupling.
 Usage
 
-# Quick Start
+## Quick Start
 
 // Initialize model
 CentralSystem model = new CentralSystem();
@@ -89,7 +89,7 @@ Command-line Options
 "Work hours" — Strategy applies work-week preferences for scheduling.
 "provider" — Uses integrated 3rd-party view (some features unsupported due to controller/view coupling).
 
-# Project Structure
+## Project Structure
 
 src/
 └── main/
@@ -110,7 +110,7 @@ src/
 └── test/
 └── (unit and integration tests if present)
 
-# Design Decisions & Enhancements
+## Design Decisions & Enhancements
 
 - Refactored tightly coupled code via interface injection.
 - Adopted interface-based architecture to enforce abstraction.
@@ -119,7 +119,7 @@ src/
 - Resolved Day enum alignment issues for alternate week-start (Saturday-first schedules).
 - Integrated exception handling for invalid XML and user input edge cases.
 
-# Known Limitations
+## Known Limitations
 
 Provider’s GUI framework could not be controlled due to tight coupling with their controller.
 paintComponent render logic intended for dynamic calendar drawing encountered limitations and is partially implemented but not fully functional.
